@@ -5,23 +5,19 @@ import com.lexschedulerbot.response.GetSuggestsResponse;
 import org.jetbrains.annotations.NotNull;
 
 public class GetSuggests extends BaseRequest<GetSuggests, GetSuggestsResponse> {
-    public GetSuggests(String bearerToken) {
+    public GetSuggests() {
         super(GetSuggestsResponse.class);
-        addBearerHeader(bearerToken);
     }
 
     public GetSuggests text(String text) {
-        addQuery("text", text);
-        return this;
+        return addQuery("text", text);
     }
 
     public GetSuggests srcLang(@NotNull Lang srcLang) {
-        addQuery("srcLang", srcLang.code());
-        return this;
+        return addQuery("srcLang", srcLang.code());
     }
 
     public GetSuggests dstLang(@NotNull Lang dstLang) {
-        addQuery("dstLang", dstLang.code());
-        return this;
+        return addQuery("dstLang", dstLang.code());
     }
 }

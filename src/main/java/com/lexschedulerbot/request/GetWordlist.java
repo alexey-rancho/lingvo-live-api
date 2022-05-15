@@ -6,37 +6,31 @@ import com.lexschedulerbot.response.GetWordlistResponse;
 import org.jetbrains.annotations.NotNull;
 
 public class GetWordlist extends BaseRequest<GetWordlist, GetWordlistResponse>{
-    public GetWordlist(String bearerToken) {
+    public GetWordlist() {
         super(GetWordlistResponse.class);
-        addBearerHeader(bearerToken);
     }
 
     @RequiredParam
     public GetWordlist prefix(String prefix) {
-        addQuery("prefix", prefix);
-        return this;
+        return addQuery("prefix", prefix);
     }
 
     @RequiredParam
     public GetWordlist srcLang(@NotNull Lang srcLang) {
-        addQuery("srcLang", srcLang.code());
-        return this;
+        return addQuery("srcLang", srcLang.code());
     }
 
     @RequiredParam
     public GetWordlist dstLang(@NotNull Lang dstLang) {
-        addQuery("dstLang", dstLang.code());
-        return this;
+        return addQuery("dstLang", dstLang.code());
     }
 
     @RequiredParam
     public GetWordlist pageSize(int pageSize) {
-        addQuery("pageSize", pageSize);
-        return this;
+        return addQuery("pageSize", pageSize);
     }
 
     public GetWordlist startPos(String startPos) {
-        addQuery("startPos", startPos);
-        return this;
+        return addQuery("startPos", startPos);
     }
 }

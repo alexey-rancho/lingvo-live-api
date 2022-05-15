@@ -10,12 +10,10 @@ public class GetWordForms extends BaseRequest<GetWordForms, GetWordFormsResponse
     }
     
     public GetWordForms text(String text) {
-        addQuery("text", text);
-        return this;
+        return addQuery("text", text);
     }
 
     public GetWordForms lang(@NotNull Lang lang) {
-        addQuery("lang", lang.code());
-        return this;
+        return addQuery("lang", lang.code());
     }
 }
