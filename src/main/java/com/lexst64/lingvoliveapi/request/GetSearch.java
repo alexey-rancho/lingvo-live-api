@@ -2,9 +2,16 @@ package com.lexst64.lingvoliveapi.request;
 
 import com.lexst64.lingvoliveapi.type.Lang;
 import com.lexst64.lingvoliveapi.response.GetSearchResponse;
+import com.lexst64.lingvoliveapi.LingvoLive;
 import com.lexst64.lingvoliveapi.type.SearchZone;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * @deprecated {@linkplain LingvoLive}'s execute method doesn't support this class's instance
+ * because {@link GetSearchResponse} doesn't meet the json structure that api method
+ * Search returns on request.
+ */
+@Deprecated
 public class GetSearch extends BaseRequest<GetSearch, GetSearchResponse> {
     public GetSearch() {
         super(GetSearchResponse.class);
