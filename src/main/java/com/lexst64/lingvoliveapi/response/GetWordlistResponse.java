@@ -1,16 +1,17 @@
 package com.lexst64.lingvoliveapi.response;
 
 import com.google.gson.annotations.SerializedName;
+import com.lexst64.lingvoliveapi.type.Lang;
 import com.lexst64.lingvoliveapi.type.WordListItem;
 
 import java.util.Arrays;
 
 public class GetWordlistResponse extends BaseResponse {
     @SerializedName("SourceLanguage")
-    private int sourceLanguage;
+    private Lang sourceLanguage;
 
     @SerializedName("TargetLanguage")
-    private int targetLanguage;
+    private Lang targetLanguage;
 
     @SerializedName("InvertedDirection")
     private boolean invertedDirection;
@@ -27,11 +28,11 @@ public class GetWordlistResponse extends BaseResponse {
     @SerializedName("Headings")
     private WordListItem[] headings;
 
-    public int getSourceLanguage() {
+    public Lang getSourceLanguage() {
         return sourceLanguage;
     }
 
-    public int getTargetLanguage() {
+    public Lang getTargetLanguage() {
         return targetLanguage;
     }
 
