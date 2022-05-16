@@ -1,6 +1,6 @@
-package com.lexschedulerbot.request;
+package com.lexst64.lingvoliveapi.request;
 
-import com.lexschedulerbot.response.GetSoundResponse;
+import com.lexst64.lingvoliveapi.response.GetSoundResponse;
 
 public class GetSound extends BaseRequest<GetSound, GetSoundResponse>{
     public GetSound() {

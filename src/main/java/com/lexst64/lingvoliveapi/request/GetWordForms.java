@@ -1,7 +1,7 @@
-package com.lexschedulerbot.request;
+package com.lexst64.lingvoliveapi.request;
 
-import com.lexschedulerbot.Lang;
-import com.lexschedulerbot.response.GetWordFormsResponse;
+import com.lexst64.lingvoliveapi.type.Lang;
+import com.lexst64.lingvoliveapi.response.GetWordFormsResponse;
 import org.jetbrains.annotations.NotNull;
 
 public class GetWordForms extends BaseRequest<GetWordForms, GetWordFormsResponse> {

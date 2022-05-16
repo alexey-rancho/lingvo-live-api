@@ -1,6 +1,6 @@
-package com.lexschedulerbot.response;
+package com.lexst64.lingvoliveapi.response;
 
-import com.lexschedulerbot.type.LexemModel;
+import com.lexst64.lingvoliveapi.type.LexemModel;
 
 import java.util.Arrays;
 

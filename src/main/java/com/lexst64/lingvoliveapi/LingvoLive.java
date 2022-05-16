@@ -1,9 +1,14 @@
-package com.lexschedulerbot;
+package com.lexst64.lingvoliveapi;
 
 import com.google.gson.Gson;
-import com.lexschedulerbot.request.*;
-import com.lexschedulerbot.response.*;
-import okhttp3.*;
+import com.lexst64.lingvoliveapi.request.BaseRequest;
+import com.lexst64.lingvoliveapi.response.BaseResponse;
+import com.lexst64.lingvoliveapi.request.GetSuggests;
+import com.lexst64.lingvoliveapi.request.GetWordForms;
+import okhttp3.OkHttpClient;
+import okhttp3.Response;
+import okhttp3.Request;
+import okhttp3.FormBody;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -92,7 +97,7 @@ public class LingvoLive {
                 .header("Authorization", "Basic " + apiKey)
                 .url(API_V1_1_URL + "authenticate")
                 .build();
-        try(Response response = client.newCall(request).execute()) {
+        try (Response response = client.newCall(request).execute()) {
             if (response.code() == 401) {
                 throw new AuthorizationException("Invalid api key");
             }

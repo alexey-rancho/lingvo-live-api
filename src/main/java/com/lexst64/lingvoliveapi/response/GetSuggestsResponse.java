@@ -1,4 +1,4 @@
-package com.lexschedulerbot.response;
+package com.lexst64.lingvoliveapi.response;
 
 import java.util.Arrays;
 

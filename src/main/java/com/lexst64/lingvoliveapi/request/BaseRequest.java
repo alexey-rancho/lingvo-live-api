@@ -1,6 +1,6 @@
-package com.lexschedulerbot.request;
+package com.lexst64.lingvoliveapi.request;
 
-import com.lexschedulerbot.response.BaseResponse;
+import com.lexst64.lingvoliveapi.response.BaseResponse;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

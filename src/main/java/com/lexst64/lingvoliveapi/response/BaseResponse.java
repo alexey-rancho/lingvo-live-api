@@ -1,6 +1,4 @@
-package com.lexschedulerbot.response;
-
-import com.lexschedulerbot.request.BaseRequest;
+package com.lexst64.lingvoliveapi.response;
 
 public abstract class BaseResponse {
     protected boolean isOk;

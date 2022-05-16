@@ -1,7 +1,7 @@
-package com.lexschedulerbot.request;
+package com.lexst64.lingvoliveapi.request;
 
-import com.lexschedulerbot.Lang;
-import com.lexschedulerbot.response.GetSuggestsResponse;
+import com.lexst64.lingvoliveapi.type.Lang;
+import com.lexst64.lingvoliveapi.response.GetSuggestsResponse;
 import org.jetbrains.annotations.NotNull;
 
 public class GetSuggests extends BaseRequest<GetSuggests, GetSuggestsResponse> {

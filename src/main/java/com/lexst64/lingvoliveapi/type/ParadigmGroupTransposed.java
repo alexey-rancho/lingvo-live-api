@@ -1,4 +1,4 @@
-package com.lexschedulerbot.type;
+package com.lexst64.lingvoliveapi.type;
 
 import com.google.gson.annotations.SerializedName;
 

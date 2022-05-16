@@ -1,7 +1,7 @@
-package com.lexschedulerbot.response;
+package com.lexst64.lingvoliveapi.response;
 
 import com.google.gson.annotations.SerializedName;
-import com.lexschedulerbot.type.WordListItem;
+import com.lexst64.lingvoliveapi.type.WordListItem;
 
 import java.util.Arrays;
 

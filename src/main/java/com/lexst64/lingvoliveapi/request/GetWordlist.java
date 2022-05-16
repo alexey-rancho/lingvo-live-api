@@ -1,8 +1,7 @@
-package com.lexschedulerbot.request;
+package com.lexst64.lingvoliveapi.request;
 
-import com.lexschedulerbot.Lang;
-import com.lexschedulerbot.RequiredParam;
-import com.lexschedulerbot.response.GetWordlistResponse;
+import com.lexst64.lingvoliveapi.type.Lang;
+import com.lexst64.lingvoliveapi.response.GetWordlistResponse;
 import org.jetbrains.annotations.NotNull;
 
 public class GetWordlist extends BaseRequest<GetWordlist, GetWordlistResponse>{
@@ -10,22 +9,18 @@ public class GetWordlist extends BaseRequest<GetWordlist, GetWordlistResponse>{
         super(GetWordlistResponse.class);
     }
 
-    @RequiredParam
     public GetWordlist prefix(String prefix) {
         return addQuery("prefix", prefix);
     }
 
-    @RequiredParam
     public GetWordlist srcLang(@NotNull Lang srcLang) {
         return addQuery("srcLang", srcLang.code());
     }
 
-    @RequiredParam
     public GetWordlist dstLang(@NotNull Lang dstLang) {
         return addQuery("dstLang", dstLang.code());
     }
 
-    @RequiredParam
     public GetWordlist pageSize(int pageSize) {
         return addQuery("pageSize", pageSize);
     }
