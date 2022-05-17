@@ -1,35 +1,31 @@
 package com.lexst64.lingvoliveapi.type;
 
-import com.google.gson.annotations.SerializedName;
+import java.util.Objects;
 
 public class ParadigmForm {
-    @SerializedName("Value")
-    private String value;
 
-    @SerializedName("Prefix")
-    private String prefix;
+    private String Value;
+    private String Prefix;
+    private String Row;
 
-    @SerializedName("Row")
-    private String row;
-
-    public String getValue() {
-        return value;
+    public String value() {
+        return Value;
     }
 
-    public String getPrefix() {
-        return prefix;
+    public String prefix() {
+        return Prefix;
     }
 
-    public String getRow() {
-        return row;
+    public String row() {
+        return Row;
     }
 
     @Override
     public String toString() {
         return "ParadigmForm{" +
-                "value='" + value + '\'' +
-                ", prefix='" + prefix + '\'' +
-                ", row='" + row + '\'' +
+                "value='" + Value + '\'' +
+                ", prefix='" + Prefix + '\'' +
+                ", row='" + Row + '\'' +
                 '}';
     }
 }

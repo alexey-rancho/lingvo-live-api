@@ -7,7 +7,7 @@ import java.util.Arrays;
 public class GetWordFormsResponse extends BaseResponse {
     private LexemModel[] lexemModels;
 
-    public LexemModel[] getLexemModels() {
+    public LexemModel[] lexemModels() {
         return lexemModels;
     }
 
@@ -18,6 +18,7 @@ public class GetWordFormsResponse extends BaseResponse {
                 ", isOk=" + isOk +
                 ", code=" + code +
                 ", message='" + message + '\'' +
+                ", errorDescription='" + errorDescription + '\'' +
                 '}';
     }
 }

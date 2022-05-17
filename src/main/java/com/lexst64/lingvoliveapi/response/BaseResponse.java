@@ -1,34 +1,32 @@
 package com.lexst64.lingvoliveapi.response;
 
 public abstract class BaseResponse {
+
     protected boolean isOk;
     protected int code;
     protected String message;
+    protected String errorDescription;
 
-    public BaseResponse setOk(boolean ok) {
-        isOk = ok;
-        return this;
-    }
-
-    public BaseResponse setCode(int code) {
-        this.code = code;
-        return this;
-    }
-
-    public BaseResponse setMessage(String message) {
-        this.message = message;
-        return this;
+    protected BaseResponse() {
+        isOk = true;
+        code = 200;
+        message = "OK";
+        errorDescription = "";
     }
 
     public boolean isOk() {
         return isOk;
     }
 
-    public int getCode() {
+    public int code() {
         return code;
     }
 
-    public String getMessage() {
+    public String message() {
         return message;
+    }
+
+    public String errorDescription() {
+        return errorDescription;
     }
 }

@@ -1,37 +1,32 @@
 package com.lexst64.lingvoliveapi.type;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.Arrays;
+import java.util.Objects;
 
 public class ParadigmModel {
-    @SerializedName("Name")
-    private String name;
 
-    @SerializedName("Grammar")
-    private String grammar;
+    private String Name;
+    private String Grammar;
+    private ParadigmGroupTransposed[] Groups;
 
-    @SerializedName("Groups")
-    private ParadigmGroupTransposed[] groups;
-
-    public String getName() {
-        return name;
+    public String name() {
+        return Name;
     }
 
-    public String getGrammar() {
-        return grammar;
+    public String grammar() {
+        return Grammar;
     }
 
-    public ParadigmGroupTransposed[] getGroups() {
-        return groups;
+    public ParadigmGroupTransposed[] groups() {
+        return Groups;
     }
 
     @Override
     public String toString() {
         return "ParadigmModel{" +
-                "name='" + name + '\'' +
-                ", grammar='" + grammar + '\'' +
-                ", groups=" + Arrays.toString(groups) +
+                "name='" + Name + '\'' +
+                ", grammar='" + Grammar + '\'' +
+                ", groups=" + Arrays.toString(Groups) +
                 '}';
     }
 }

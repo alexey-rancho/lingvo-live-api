@@ -27,10 +27,7 @@ public class LingvoLive {
 
     private String bearerToken;
 
-    public LingvoLive(@NotNull String apiKey) {
-        if (apiKey.length() == 0) {
-            throw new IllegalArgumentException("apiKey mustn't be empty");
-        }
+    public LingvoLive(@NotNull String apiKey) throws AuthenticationException {
         this.apiKey = apiKey;
         client = new OkHttpClient();
         gson = new Gson();
@@ -39,7 +36,7 @@ public class LingvoLive {
 
     public <T extends BaseRequest<T, R>, R extends BaseResponse> R execute(BaseRequest<T, R> request) {
         R response = send(request);
-        if (response.getCode() == 401) {
+        if (response.code() == 401) {
             bearerToken = authenticate();
             return send(request);
         }
@@ -48,23 +45,15 @@ public class LingvoLive {
 
     private <T extends BaseRequest<T, R>, R extends BaseResponse> R send(BaseRequest<T, R> request) {
         try (Response response = client.newCall(createRequest(request)).execute()) {
-            System.out.println(response.code());
             String json = response.body().string();
-            if (request instanceof GetSuggests) {
-                json = "{suggests: " + json + "}";
-            }
-            if (request instanceof GetWordForms) {
-                json = "{lexemModels: " + json + "}";
-            }
+
+            if (request instanceof GetSuggests) json = "{suggests: " + json + "}";
+            if (request instanceof GetWordForms) json = "{lexemModels: " + json + "}";
 
             if (response.code() >= 200 && response.code() < 300) {
-                R successResponse = gson.fromJson(json, request.getResponseType());
-                successResponse.setCode(response.code())
-                        .setOk(response.isSuccessful())
-                        .setMessage(response.message());
-                return successResponse;
+                return gson.fromJson(json, request.getResponseType());
             } else {
-                json = createBaseJson(response.isSuccessful(), response.code(), response.message());
+                json = createJsonOnError(response.code(), response.message(), json);
                 return gson.fromJson(json, request.getResponseType());
             }
         } catch (IOException e) {
@@ -72,8 +61,11 @@ public class LingvoLive {
         }
     }
 
-    private String createBaseJson(boolean isOk, int code, String message) {
-        return String.format("{\"isOk\": \"%b\"; \"code\": \"%d\"; \"message\": \"%s\"}", isOk, code, message);
+    private String createJsonOnError(int code, String message, String errorDescription) {
+        return String.format(
+                "{\"isOk\": false, \"code\": %d, \"message\": \"%s\", \"errorDescription\": %s}",
+                code, message, errorDescription
+        );
     }
 
     private Request createRequest(BaseRequest<?, ?> request) {
@@ -91,7 +83,7 @@ public class LingvoLive {
         return "?" + String.join("&", queries);
     }
 
-    private String authenticate() throws AuthorizationException {
+    private String authenticate() throws AuthenticationException {
         Request request = new Request.Builder()
                 .post(new FormBody.Builder().build())
                 .header("Authorization", "Basic " + apiKey)
@@ -99,7 +91,7 @@ public class LingvoLive {
                 .build();
         try (Response response = client.newCall(request).execute()) {
             if (response.code() == 401) {
-                throw new AuthorizationException("Invalid api key");
+                throw new AuthenticationException("invalid api key");
             }
             return response.body().string();
         } catch (IOException e) {

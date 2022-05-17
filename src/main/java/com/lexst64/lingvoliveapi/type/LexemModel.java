@@ -1,35 +1,31 @@
 package com.lexst64.lingvoliveapi.type;
 
-import com.google.gson.annotations.SerializedName;
+import java.util.Objects;
 
 public class LexemModel {
-    @SerializedName("Lexem")
-    private String lexem;
 
-    @SerializedName("PartOfSpeech")
-    private String partOfSpeech;
+    private String Lexem;
+    private String PartOfSpeech;
+    private ParadigmModel ParadigmJson;
 
-    @SerializedName("ParadigmJson")
-    private ParadigmModel paradigmJson;
-
-    public String getLexem() {
-        return lexem;
+    public String lexem() {
+        return Lexem;
     }
 
-    public String getPartOfSpeech() {
-        return partOfSpeech;
+    public String partOfSpeech() {
+        return PartOfSpeech;
     }
 
-    public ParadigmModel getParadigmJson() {
-        return paradigmJson;
+    public ParadigmModel paradigmJson() {
+        return ParadigmJson;
     }
 
     @Override
     public String toString() {
         return "LexemModel{" +
-                "lexem='" + lexem + '\'' +
-                ", partOfSpeech='" + partOfSpeech + '\'' +
-                ", paradigmJson=" + paradigmJson +
+                "lexem='" + Lexem + '\'' +
+                ", partOfSpeech='" + PartOfSpeech + '\'' +
+                ", paradigmJson=" + ParadigmJson +
                 '}';
     }
 }

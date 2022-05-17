@@ -41,6 +41,7 @@ public class GetSearchResponse extends BaseResponse {
                 ", isOk=" + isOk +
                 ", code=" + code +
                 ", message='" + message + '\'' +
+                ", errorDescription='" + errorDescription + '\'' +
                 '}';
     }
 }

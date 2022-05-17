@@ -1,45 +1,38 @@
 package com.lexst64.lingvoliveapi.type;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.Arrays;
+import java.util.Objects;
 
 public class ParadigmGroupTransposed {
-    @SerializedName("Name")
-    private String name;
 
-    @SerializedName("Table")
-    private ParadigmForm[][] table;
+    private String Name;
+    private ParadigmForm[][] Table;
+    private int ColumnCount;
+    private int RowCount;
 
-    @SerializedName("ColumnCount")
-    private int columnCount;
-
-    @SerializedName("RowCount")
-    private int rowCount;
-
-    public String getName() {
-        return name;
+    public String name() {
+        return Name;
     }
 
-    public ParadigmForm[][] getTable() {
-        return table;
+    public ParadigmForm[][] table() {
+        return Table;
     }
 
-    public int getColumnCount() {
-        return columnCount;
+    public int columnCount() {
+        return ColumnCount;
     }
 
-    public int getRowCount() {
-        return rowCount;
+    public int rowCount() {
+        return RowCount;
     }
 
     @Override
     public String toString() {
         return "ParadigmGroupTransposed{" +
-                "name='" + name + '\'' +
-                ", table=" + Arrays.deepToString(table) +
-                ", columnCount=" + columnCount +
-                ", rowCount=" + rowCount +
+                "name='" + Name + '\'' +
+                ", table=" + Arrays.deepToString(Table) +
+                ", columnCount=" + ColumnCount +
+                ", rowCount=" + RowCount +
                 '}';
     }
 }

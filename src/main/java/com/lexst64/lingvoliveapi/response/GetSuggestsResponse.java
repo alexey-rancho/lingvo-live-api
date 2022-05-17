@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class GetSuggestsResponse extends BaseResponse {
     private String[] suggests;
 
-    public String[] getSuggests() {
+    public String[] suggests() {
         return suggests;
     }
 
@@ -16,6 +16,7 @@ public class GetSuggestsResponse extends BaseResponse {
                 ", isOk=" + isOk +
                 ", code=" + code +
                 ", message='" + message + '\'' +
+                ", errorDescription='" + errorDescription + '\'' +
                 '}';
     }
 }

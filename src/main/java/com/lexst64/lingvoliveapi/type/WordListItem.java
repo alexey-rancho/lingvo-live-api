@@ -1,30 +1,48 @@
 package com.lexst64.lingvoliveapi.type;
 
-import com.google.gson.annotations.SerializedName;
+import java.util.Objects;
 
 public class WordListItem {
-    @SerializedName("Heading")
-    private String heading;
-    @SerializedName("Translation")
-    private String translation;
-    @SerializedName("DictionaryName")
-    private String dictionaryName;
-    @SerializedName("SoundName")
-    private String soundName;
-    @SerializedName("Type")
-    private WordListItemType type;
-    @SerializedName("OriginalWord")
-    private String originalWord;
+    private String Heading;
+    private String Translation;
+    private String DictionaryName;
+    private String SoundName;
+    private WordListItemType Type;
+    private String OriginalWord;
+
+    public String heading() {
+        return Heading;
+    }
+
+    public String translation() {
+        return Translation;
+    }
+
+    public String dictionaryName() {
+        return DictionaryName;
+    }
+
+    public String soundName() {
+        return SoundName;
+    }
+
+    public WordListItemType type() {
+        return Type;
+    }
+
+    public String originalWord() {
+        return OriginalWord;
+    }
 
     @Override
     public String toString() {
         return "WordListItem{" +
-                "heading='" + heading + '\'' +
-                ", translation='" + translation + '\'' +
-                ", dictionaryName='" + dictionaryName + '\'' +
-                ", soundName='" + soundName + '\'' +
-                ", type=" + type +
-                ", originalWord='" + originalWord + '\'' +
+                "heading='" + Heading + '\'' +
+                ", translation='" + Translation + '\'' +
+                ", dictionaryName='" + DictionaryName + '\'' +
+                ", soundName='" + SoundName + '\'' +
+                ", type=" + Type +
+                ", originalWord='" + OriginalWord + '\'' +
                 '}';
     }
 }

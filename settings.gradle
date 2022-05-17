@@ -1,2 +1,4 @@
 rootProject.name = 'LexSchedulerBot'
+include 'src:test'
+findProject(':src:test')?.name = 'test'
 

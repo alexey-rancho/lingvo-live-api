@@ -1,74 +1,63 @@
 package com.lexst64.lingvoliveapi.response;
 
-import com.google.gson.annotations.SerializedName;
 import com.lexst64.lingvoliveapi.type.Lang;
 import com.lexst64.lingvoliveapi.type.WordListItem;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class GetWordlistResponse extends BaseResponse {
-    @SerializedName("SourceLanguage")
-    private Lang sourceLanguage;
+    private Lang SourceLanguage;
+    private Lang TargetLanguage;
+    private boolean InvertedDirection;
+    private String Prefix;
 
-    @SerializedName("TargetLanguage")
-    private Lang targetLanguage;
+    private boolean HasNextPage;
 
-    @SerializedName("InvertedDirection")
-    private boolean invertedDirection;
-
-    @SerializedName("Prefix")
-    private String prefix;
-
-    @SerializedName("HasNextPage")
-    private boolean hasNextPage;
-
-    @SerializedName("StartPos")
-    private String startPos;
-
-    @SerializedName("Headings")
-    private WordListItem[] headings;
-
-    public Lang getSourceLanguage() {
-        return sourceLanguage;
+    private String StartPos;
+    private WordListItem[] Headings;
+    public Lang sourceLanguage() {
+        return SourceLanguage;
     }
 
-    public Lang getTargetLanguage() {
-        return targetLanguage;
+    public Lang targetLanguage() {
+        return TargetLanguage;
     }
 
-    public boolean isInvertedDirection() {
-        return invertedDirection;
+    public boolean invertedDirection() {
+        return InvertedDirection;
     }
 
-    public String getPrefix() {
-        return prefix;
+    public String prefix() {
+        return Prefix;
     }
 
-    public boolean isHasNextPage() {
-        return hasNextPage;
+    public boolean hasNextPage() {
+        return HasNextPage;
     }
 
-    public String getStartPos() {
-        return startPos;
+    public String startPos() {
+        return StartPos;
     }
 
-    public WordListItem[] getHeadings() {
-        return headings;
+    public WordListItem[] headings() {
+        return Headings;
     }
 
     @Override
     public String toString() {
         return "GetWordlistResponse{" +
-                "sourceLanguage=" + sourceLanguage +
-                ", targetLanguage=" + targetLanguage +
-                ", invertedDirection=" + invertedDirection +
-                ", prefix='" + prefix + '\'' +
-                ", hasNextPage=" + hasNextPage +
-                ", startPos='" + startPos + '\'' +
-                ", headings=" + Arrays.toString(headings) +
+                "SourceLanguage=" + SourceLanguage +
+                ", TargetLanguage=" + TargetLanguage +
+                ", InvertedDirection=" + InvertedDirection +
+                ", Prefix='" + Prefix + '\'' +
+                ", HasNextPage=" + HasNextPage +
+                ", StartPos='" + StartPos + '\'' +
+                ", Headings=" + Arrays.toString(Headings) +
                 ", isOk=" + isOk +
                 ", code=" + code +
                 ", message='" + message + '\'' +
+                ", errorDescription='" + errorDescription + '\'' +
                 '}';
     }
 }

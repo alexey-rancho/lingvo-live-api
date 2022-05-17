@@ -1,6 +1,5 @@
 package com.lexst64.lingvoliveapi.response;
 
-import com.google.gson.annotations.SerializedName;
 import com.lexst64.lingvoliveapi.type.Lang;
 import com.lexst64.lingvoliveapi.type.WordListItem;
 
@@ -8,48 +7,44 @@ import java.util.Arrays;
 
 public class GetMinicardResponse extends BaseResponse {
 
-    @SerializedName("SourceLanguage")
-    private Lang sourceLanguage;
-    @SerializedName("TargetLanguage")
-    private Lang targetLanguage;
-    @SerializedName("Heading")
-    private String heading;
-    @SerializedName("Translation")
-    private WordListItem translation;
-    @SerializedName("SeeAlso")
-    private String[] seeAlso;
+    private Lang SourceLanguage;
+    private Lang TargetLanguage;
+    private String Heading;
+    private WordListItem Translation;
+    private String[] SeeAlso;
 
-    public Lang getSourceLanguage() {
-        return sourceLanguage;
+    public Lang sourceLanguage() {
+        return SourceLanguage;
     }
 
-    public Lang getTargetLanguage() {
-        return targetLanguage;
+    public Lang targetLanguage() {
+        return TargetLanguage;
     }
 
-    public String getHeading() {
-        return heading;
+    public String heading() {
+        return Heading;
     }
 
-    public WordListItem getTranslation() {
-        return translation;
+    public WordListItem translation() {
+        return Translation;
     }
 
-    public String[] getSeeAlso() {
-        return seeAlso;
+    public String[] seeAlso() {
+        return SeeAlso;
     }
 
     @Override
     public String toString() {
         return "GetMinicardResponse{" +
-                "sourceLanguage=" + sourceLanguage +
-                ", targetLanguage=" + targetLanguage +
-                ", heading='" + heading + '\'' +
-                ", translation=" + translation +
-                ", seeAlso=" + Arrays.toString(seeAlso) +
+                "SourceLanguage=" + SourceLanguage +
+                ", TargetLanguage=" + TargetLanguage +
+                ", Heading='" + Heading + '\'' +
+                ", Translation=" + Translation +
+                ", SeeAlso=" + Arrays.toString(SeeAlso) +
                 ", isOk=" + isOk +
                 ", code=" + code +
                 ", message='" + message + '\'' +
+                ", errorDescription='" + errorDescription + '\'' +
                 '}';
     }
 }
