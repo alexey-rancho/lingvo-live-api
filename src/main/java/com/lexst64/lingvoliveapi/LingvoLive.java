@@ -9,6 +9,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Response;
 import okhttp3.Request;
 import okhttp3.FormBody;
+import okhttp3.Call;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -43,22 +44,73 @@ public class LingvoLive {
         return response;
     }
 
-    private <T extends BaseRequest<T, R>, R extends BaseResponse> R send(BaseRequest<T, R> request) {
-        try (Response response = client.newCall(createRequest(request)).execute()) {
-            String json = response.body().string();
-
-            if (request instanceof GetSuggests) json = "{suggests: " + json + "}";
-            if (request instanceof GetWordForms) json = "{lexemModels: " + json + "}";
-
-            if (response.code() >= 200 && response.code() < 300) {
-                return gson.fromJson(json, request.getResponseType());
-            } else {
-                json = createJsonOnError(response.code(), response.message(), json);
-                return gson.fromJson(json, request.getResponseType());
+    public <T extends BaseRequest<T, R>, R extends BaseResponse> void execute(T request, Callback<T, R> callback) {
+        Callback<T, R> callback0 = new Callback<>() {
+            @Override
+            public void onResponse(T request, R response) {
+                if (response.code() == 401) {
+                    bearerToken = authenticate();
+                    send(request, callback);
+                } else {
+                    callback.onResponse(request, response);
+                }
             }
+
+            @Override
+            public void onFailure(T request, IOException e) {
+                callback.onFailure(request, e);
+            }
+        };
+        send(request, callback0);
+    }
+
+    private <T extends BaseRequest<T, R>, R extends BaseResponse> void send(final T request, final Callback<T, R> callback) {
+        client.newCall(createRequest(request)).enqueue(new okhttp3.Callback() {
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) {
+                R result = null;
+                Exception exception = null;
+
+                try {
+                    result = createResponse(request, response);
+                } catch (Exception e) {
+                    exception = e;
+                }
+
+                if (result != null) {
+                    callback.onResponse(request, result);
+                } else if (exception != null) {
+                    callback.onFailure(request, exception instanceof IOException ? (IOException) exception : new IOException(exception));
+                } else {
+                    callback.onFailure(request, new IOException("response json is null or empty"));
+                }
+            }
+
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+                callback.onFailure(request, e);
+            }
+        });
+    }
+
+    private <T extends BaseRequest<T, R>, R extends BaseResponse> R send(final BaseRequest<T, R> request) {
+        try (Response response = client.newCall(createRequest(request)).execute()) {
+            return createResponse(request, response);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private <T extends BaseRequest<T, R>, R extends BaseResponse> R createResponse(BaseRequest<T, R> request, Response response) throws IOException {
+        String json = response.body().string();
+
+        if (request instanceof GetSuggests) json = "{suggests: " + json + "}";
+        if (request instanceof GetWordForms) json = "{lexemModels: " + json + "}";
+
+        if (response.code() < 200 || response.code() >= 300) {
+            json = createJsonOnError(response.code(), response.message(), json);
+        }
+        return gson.fromJson(json, request.getResponseType());
     }
 
     private String createJsonOnError(int code, String message, String errorDescription) {
