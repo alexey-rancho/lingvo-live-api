@@ -1,12 +1,23 @@
 package com.lexst64.lingvoliveapi;
 
-import com.lexst64.lingvoliveapi.request.*;
-import com.lexst64.lingvoliveapi.response.*;
+import com.lexst64.lingvoliveapi.request.GetMinicard;
+import com.lexst64.lingvoliveapi.request.GetWordlist;
+import com.lexst64.lingvoliveapi.request.GetWordForms;
+import com.lexst64.lingvoliveapi.request.GetSuggests;
+import com.lexst64.lingvoliveapi.response.GetMinicardResponse;
+import com.lexst64.lingvoliveapi.response.GetSuggestsResponse;
+import com.lexst64.lingvoliveapi.response.GetWordFormsResponse;
+import com.lexst64.lingvoliveapi.response.GetWordlistResponse;
 import com.lexst64.lingvoliveapi.type.Lang;
 import com.lexst64.lingvoliveapi.type.LexemModel;
 import com.lexst64.lingvoliveapi.type.WordListItem;
+import okhttp3.OkHttpClient;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
+
+import java.io.IOException;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 
 public class LingvoLiveTest {
@@ -89,5 +100,53 @@ public class LingvoLiveTest {
         for (WordListItem item : response.headings()) {
             WordListItemTest.check(item);
         }
+    }
+
+    @Test
+    void testAsyncCallbackOnResponse() throws RuntimeException, InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        GetMinicard request = new GetMinicard()
+                .text("word")
+                .srcLang(Lang.ENGLISH)
+                .dstLang(Lang.RUSSIAN);
+        lingvoLive.execute(request, new Callback<GetMinicard, GetMinicardResponse>() {
+            @Override
+            public void onResponse(GetMinicard request, GetMinicardResponse response) {
+                lock.countDown();
+            }
+
+            @Override
+            public void onFailure(GetMinicard request, IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        Assertions.assertTrue(lock.await(5, TimeUnit.SECONDS));
+    }
+
+    @Test
+    void testAsyncCallbackOnFailure() throws InterruptedException {
+        CountDownLatch lock = new CountDownLatch(1);
+        LingvoLiveClient client = new LingvoLiveClient(TEST_API_KEY, new OkHttpClient(), null);
+        GetMinicard request = new GetMinicard()
+                .text("word")
+                .srcLang(Lang.ENGLISH)
+                .dstLang(Lang.RUSSIAN);
+        client.send(request, new Callback<GetMinicard, GetMinicardResponse>() {
+            @Override
+            public void onResponse(GetMinicard request, GetMinicardResponse response) {
+
+            }
+
+            @Override
+            public void onFailure(GetMinicard request, IOException e) {
+                lock.countDown();
+            }
+        });
+        Assertions.assertTrue(lock.await(5, TimeUnit.SECONDS));
+    }
+
+    @Test
+    void testGetApiKey() {
+        Assertions.assertEquals(TEST_API_KEY, lingvoLive.getApiKey());
     }
 }
