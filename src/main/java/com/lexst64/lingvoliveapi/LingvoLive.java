@@ -5,11 +5,7 @@ import com.lexst64.lingvoliveapi.request.BaseRequest;
 import com.lexst64.lingvoliveapi.response.BaseResponse;
 import com.lexst64.lingvoliveapi.request.GetSuggests;
 import com.lexst64.lingvoliveapi.request.GetWordForms;
-import okhttp3.OkHttpClient;
-import okhttp3.Response;
-import okhttp3.Request;
-import okhttp3.FormBody;
-import okhttp3.Call;
+import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -30,38 +26,57 @@ public class LingvoLive {
 
     public LingvoLive(@NotNull String apiKey) throws AuthenticationException {
         this.apiKey = apiKey;
-        client = new OkHttpClient();
         gson = new Gson();
+        client = new OkHttpClient.Builder().authenticator(new Authenticator() {
+            @Override
+            public Request authenticate(Route route, @NotNull Response response) {
+                String header = response.request().header("Authorization");
+                if (header == null || !header.startsWith("Bearer")) {
+                    return null;
+                }
+                if (responseCount(response) > 2) {
+                    return null;
+                }
+                System.out.println("try");
+                bearerToken = LingvoLive.this.authenticate();
+                return response.request().newBuilder()
+                        .header("Authorization", "Bearer " + bearerToken)
+                        .build();
+            }
+
+            private int responseCount(Response response) {
+                int result = 1;
+                while ((response = response.priorResponse()) != null) {
+                    result++;
+                }
+                return result;
+            }
+        }).build();
         bearerToken = authenticate();
     }
 
     public <T extends BaseRequest<T, R>, R extends BaseResponse> R execute(BaseRequest<T, R> request) {
-        R response = send(request);
-        if (response.code() == 401) {
-            bearerToken = authenticate();
-            return send(request);
-        }
-        return response;
+        return send(request);
     }
 
     public <T extends BaseRequest<T, R>, R extends BaseResponse> void execute(T request, Callback<T, R> callback) {
-        Callback<T, R> callback0 = new Callback<>() {
-            @Override
-            public void onResponse(T request, R response) {
-                if (response.code() == 401) {
-                    bearerToken = authenticate();
-                    send(request, callback);
-                } else {
-                    callback.onResponse(request, response);
-                }
-            }
+        send(request, callback);
+    }
 
-            @Override
-            public void onFailure(T request, IOException e) {
-                callback.onFailure(request, e);
+    private String authenticate() throws AuthenticationException {
+        Request request = new Request.Builder()
+                .post(new FormBody.Builder().build())
+                .header("Authorization", "Basic " + apiKey)
+                .url(API_V1_1_URL + "authenticate")
+                .build();
+        try (Response response = client.newCall(request).execute()) {
+            if (response.code() == 401) {
+                throw new AuthenticationException("invalid api key");
             }
-        };
-        send(request, callback0);
+            return response.body().string();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private <T extends BaseRequest<T, R>, R extends BaseResponse> void send(final T request, final Callback<T, R> callback) {
@@ -114,8 +129,11 @@ public class LingvoLive {
     }
 
     private String createJsonOnError(int code, String message, String errorDescription) {
+        if (errorDescription.matches("^\".*\"$")) {
+            errorDescription = errorDescription.substring(1, errorDescription.length() - 1);
+        }
         return String.format(
-                "{\"isOk\": false, \"code\": %d, \"message\": \"%s\", \"errorDescription\": %s}",
+                "{\"isOk\": false, \"code\": %d, \"message\": \"%s\", \"errorDescription\": \"%s\"}",
                 code, message, errorDescription
         );
     }
@@ -133,21 +151,5 @@ public class LingvoLive {
             queries.add(query.getKey() + "=" + query.getValue());
         }
         return "?" + String.join("&", queries);
-    }
-
-    private String authenticate() throws AuthenticationException {
-        Request request = new Request.Builder()
-                .post(new FormBody.Builder().build())
-                .header("Authorization", "Basic " + apiKey)
-                .url(API_V1_1_URL + "authenticate")
-                .build();
-        try (Response response = client.newCall(request).execute()) {
-            if (response.code() == 401) {
-                throw new AuthenticationException("invalid api key");
-            }
-            return response.body().string();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 }
