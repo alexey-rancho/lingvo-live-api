@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 public class GetWordForms extends BaseRequest<GetWordForms, GetWordFormsResponse> {
     public GetWordForms() {
         super(GetWordFormsResponse.class);
+        setRequiredQueries("text", "lang");
     }
     
     public GetWordForms text(String text) {

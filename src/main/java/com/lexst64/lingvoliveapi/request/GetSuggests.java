@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 public class GetSuggests extends BaseRequest<GetSuggests, GetSuggestsResponse> {
     public GetSuggests() {
         super(GetSuggestsResponse.class);
+        setRequiredQueries("text", "srcLang", "dstLang");
     }
 
     public GetSuggests text(String text) {

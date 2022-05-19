@@ -1,7 +1,5 @@
 package com.lexst64.lingvoliveapi.type;
 
-import java.util.Objects;
-
 public class WordListItem {
     private String Heading;
     private String Translation;

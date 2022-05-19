@@ -15,6 +15,7 @@ import org.jetbrains.annotations.NotNull;
 public class GetSearch extends BaseRequest<GetSearch, GetSearchResponse> {
     public GetSearch() {
         super(GetSearchResponse.class);
+        setRequiredQueries("text", "srcLang", "dstLang", "searchZone", "startIndex", "pageSize");
     }
 
     public GetSearch text(String text) {

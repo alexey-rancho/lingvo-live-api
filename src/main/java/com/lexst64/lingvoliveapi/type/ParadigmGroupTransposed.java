@@ -1,7 +1,6 @@
 package com.lexst64.lingvoliveapi.type;
 
 import java.util.Arrays;
-import java.util.Objects;
 
 public class ParadigmGroupTransposed {
 

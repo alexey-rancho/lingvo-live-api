@@ -4,7 +4,6 @@ import com.lexst64.lingvoliveapi.type.Lang;
 import com.lexst64.lingvoliveapi.type.WordListItem;
 
 import java.util.Arrays;
-import java.util.Objects;
 
 public class GetWordlistResponse extends BaseResponse {
     private Lang SourceLanguage;

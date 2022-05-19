@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 public class GetWordlist extends BaseRequest<GetWordlist, GetWordlistResponse>{
     public GetWordlist() {
         super(GetWordlistResponse.class);
+        setRequiredQueries("prefix", "srcLang", "dstLang", "pageSize");
     }
 
     public GetWordlist prefix(String prefix) {

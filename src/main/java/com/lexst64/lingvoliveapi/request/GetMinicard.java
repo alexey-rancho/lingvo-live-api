@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 public class GetMinicard extends BaseRequest<GetMinicard, GetMinicardResponse> {
     public GetMinicard() {
         super(GetMinicardResponse.class);
+        setRequiredQueries("text", "srcLang", "dstLang");
     }
 
     public GetMinicard text(String text) {

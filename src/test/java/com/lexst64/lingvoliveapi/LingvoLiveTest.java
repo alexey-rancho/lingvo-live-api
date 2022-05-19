@@ -46,6 +46,31 @@ public class LingvoLiveTest {
     }
 
     @Test
+    void testExecuteWhenRequiredQueryMissed() {
+        GetMinicard request0 = new GetMinicard().dstLang(Lang.ENGLISH).text("text");
+        MissingQueryException exception0 = Assertions.assertThrowsExactly(MissingQueryException.class, () -> {
+            lingvoLive.execute(request0);
+        });
+        Assertions.assertEquals("srcLang", exception0.getKey());
+        Assertions.assertEquals(request0.getClass().getSimpleName(), exception0.getClassName());
+
+        GetWordlist request1 = new GetWordlist().srcLang(Lang.ENGLISH);
+        MissingQueryException exception1 = Assertions.assertThrowsExactly(MissingQueryException.class, () -> {
+            lingvoLive.execute(request1, new Callback<GetWordlist, GetWordlistResponse>() {
+                @Override
+                public void onResponse(GetWordlist request, GetWordlistResponse response) {
+                }
+
+                @Override
+                public void onFailure(GetWordlist request, IOException e) {
+                }
+            });
+        });
+        Assertions.assertEquals("prefix", exception1.getKey());
+        Assertions.assertEquals(request1.getClass().getSimpleName(), exception1.getClassName());
+    }
+
+    @Test
     void testGetMinicard() {
         GetMinicard request = new GetMinicard().srcLang(Lang.ENGLISH).dstLang(Lang.RUSSIAN).text("book");
         GetMinicardResponse response = lingvoLive.execute(request);
