@@ -147,12 +147,14 @@ public class LingvoLiveClient {
     private <T extends BaseRequest<T, R>, R extends BaseResponse> R createResponse(BaseRequest<T, R> request, Response response) throws IOException {
         String json = response.body().string();
 
+        if (response.code() < 200 || response.code() >= 300) {
+            json = createJsonOnError(response.code(), response.message(), json);
+            return gson.fromJson(json, request.getResponseType());
+        }
+
         if (request instanceof GetSuggests) json = "{suggests: " + json + "}";
         if (request instanceof GetWordForms) json = "{lexemModels: " + json + "}";
 
-        if (response.code() < 200 || response.code() >= 300) {
-            json = createJsonOnError(response.code(), response.message(), json);
-        }
         return gson.fromJson(json, request.getResponseType());
     }
 

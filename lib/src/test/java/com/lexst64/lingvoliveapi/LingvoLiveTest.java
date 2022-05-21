@@ -84,8 +84,8 @@ public class LingvoLiveTest {
     }
 
     @Test
-    void testGetSuggests() {
-        GetSuggests request = new GetSuggests().srcLang(Lang.ENGLISH).dstLang(Lang.RUSSIAN).text("book");
+    void testGetSuggestsWhenSuggestsFound() {
+        GetSuggests request = new GetSuggests().text("book").srcLang(Lang.ENGLISH).dstLang(Lang.RUSSIAN);
         GetSuggestsResponse response = lingvoLive.execute(request);
         Assertions.assertEquals(200, response.code());
 
@@ -93,6 +93,17 @@ public class LingvoLiveTest {
         for (String suggest : response.suggests()) {
             Assertions.assertNotNull(suggest);
         }
+    }
+
+    @Test
+    void testGetSuggestsWhenSuggestionsNotFound() {
+        GetSuggests request = new GetSuggests().text("82828jjj").srcLang(Lang.ENGLISH).dstLang(Lang.RUSSIAN);
+        GetSuggestsResponse response = lingvoLive.execute(request);
+
+        Assertions.assertEquals(404, response.code());
+        Assertions.assertNull(response.suggests());
+        String expectedMessage = "No suggests found for text \\\"82828jjj\\\" among available dictionaries";
+        Assertions.assertEquals(expectedMessage, response.errorDescription());
     }
 
     @Test
