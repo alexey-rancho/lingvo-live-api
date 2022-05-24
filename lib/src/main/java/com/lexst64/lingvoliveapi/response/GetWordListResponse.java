@@ -5,7 +5,7 @@ import com.lexst64.lingvoliveapi.type.WordListItem;
 
 import java.util.Arrays;
 
-public class GetWordlistResponse extends BaseResponse {
+public class GetWordListResponse extends BaseResponse {
     private Lang SourceLanguage;
     private Lang TargetLanguage;
     private boolean InvertedDirection;

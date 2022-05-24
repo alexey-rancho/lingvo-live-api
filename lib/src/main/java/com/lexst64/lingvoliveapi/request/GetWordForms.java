@@ -5,16 +5,9 @@ import com.lexst64.lingvoliveapi.response.GetWordFormsResponse;
 import org.jetbrains.annotations.NotNull;
 
 public class GetWordForms extends BaseRequest<GetWordForms, GetWordFormsResponse> {
-    public GetWordForms() {
+    public GetWordForms(@NotNull String text, @NotNull Lang lang) {
         super(GetWordFormsResponse.class);
-        setRequiredQueries("text", "lang");
-    }
-    
-    public GetWordForms text(String text) {
-        return addQuery("text", text);
-    }
-
-    public GetWordForms lang(@NotNull Lang lang) {
-        return addQuery("lang", lang.getCode());
+        addQuery("text", text);
+        addQuery("lang", lang.getCode());
     }
 }
