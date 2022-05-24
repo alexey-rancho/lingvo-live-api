@@ -15,10 +15,10 @@ public class GetSuggests extends BaseRequest<GetSuggests, GetSuggestsResponse> {
     }
 
     public GetSuggests srcLang(@NotNull Lang srcLang) {
-        return addQuery("srcLang", srcLang.code());
+        return addQuery("srcLang", srcLang.getCode());
     }
 
     public GetSuggests dstLang(@NotNull Lang dstLang) {
-        return addQuery("dstLang", dstLang.code());
+        return addQuery("dstLang", dstLang.getCode());
     }
 }

@@ -15,11 +15,11 @@ public class GetWordlist extends BaseRequest<GetWordlist, GetWordlistResponse>{
     }
 
     public GetWordlist srcLang(@NotNull Lang srcLang) {
-        return addQuery("srcLang", srcLang.code());
+        return addQuery("srcLang", srcLang.getCode());
     }
 
     public GetWordlist dstLang(@NotNull Lang dstLang) {
-        return addQuery("dstLang", dstLang.code());
+        return addQuery("dstLang", dstLang.getCode());
     }
 
     public GetWordlist pageSize(int pageSize) {

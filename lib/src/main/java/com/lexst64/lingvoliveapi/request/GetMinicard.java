@@ -15,10 +15,10 @@ public class GetMinicard extends BaseRequest<GetMinicard, GetMinicardResponse> {
     }
 
     public GetMinicard srcLang(@NotNull Lang srcLang) {
-        return addQuery("srcLang", srcLang.code());
+        return addQuery("srcLang", srcLang.getCode());
     }
 
     public GetMinicard dstLang(@NotNull Lang dstLang) {
-        return addQuery("dstLang", dstLang.code());
+        return addQuery("dstLang", dstLang.getCode());
     }
 }

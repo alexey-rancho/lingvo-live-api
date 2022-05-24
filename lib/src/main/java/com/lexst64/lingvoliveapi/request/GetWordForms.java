@@ -15,6 +15,6 @@ public class GetWordForms extends BaseRequest<GetWordForms, GetWordFormsResponse
     }
 
     public GetWordForms lang(@NotNull Lang lang) {
-        return addQuery("lang", lang.code());
+        return addQuery("lang", lang.getCode());
     }
 }

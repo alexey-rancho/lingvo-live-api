@@ -15,13 +15,31 @@ public enum Lang {
     @SerializedName("1028")
     CHINESE(1028);
 
-    private final int langCode;
+    private final int code;
 
     Lang(int langCode) {
-        this.langCode = langCode;
+        this.code = langCode;
     }
 
-    public int code() {
-        return langCode;
+    public int getCode() {
+        return code;
+    }
+
+    public static Lang getLangByCode(int code) {
+        for (Lang lang : Lang.values()) {
+            if (lang.code == code) {
+                return lang;
+            }
+        }
+        return null;
+    }
+
+    public static Lang getLangByCode(int code, Lang defaultValue) {
+        for (Lang lang : Lang.values()) {
+            if (lang.code == code) {
+                return lang;
+            }
+        }
+        return defaultValue;
     }
 }
