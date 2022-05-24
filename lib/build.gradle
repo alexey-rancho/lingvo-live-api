@@ -1,12 +1,12 @@
 plugins {
     id 'java-library'
-    id 'maven-publish'
+//    id 'maven-publish'
 }
 
 group 'com.github.lexst64'
-version '1.0.3'
+version 'v1.0.5'
 
-apply plugin: 'maven-publish'
+//apply plugin: 'maven-publish'
 
 repositories {
     mavenCentral()
