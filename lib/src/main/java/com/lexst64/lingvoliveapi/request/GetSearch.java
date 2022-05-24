@@ -1,6 +1,6 @@
 package com.lexst64.lingvoliveapi.request;
 
-import com.lexst64.lingvoliveapi.type.Lang;
+import com.lexst64.lingvoliveapi.lang.Lang;
 import com.lexst64.lingvoliveapi.response.GetSearchResponse;
 import com.lexst64.lingvoliveapi.LingvoLive;
 import com.lexst64.lingvoliveapi.type.SearchZone;

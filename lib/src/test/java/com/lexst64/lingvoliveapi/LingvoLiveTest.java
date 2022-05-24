@@ -8,7 +8,7 @@ import com.lexst64.lingvoliveapi.response.GetMinicardResponse;
 import com.lexst64.lingvoliveapi.response.GetSuggestsResponse;
 import com.lexst64.lingvoliveapi.response.GetWordFormsResponse;
 import com.lexst64.lingvoliveapi.response.GetWordlistResponse;
-import com.lexst64.lingvoliveapi.type.Lang;
+import com.lexst64.lingvoliveapi.lang.Lang;
 import com.lexst64.lingvoliveapi.type.LexemModel;
 import com.lexst64.lingvoliveapi.type.WordListItem;
 import okhttp3.OkHttpClient;
@@ -35,7 +35,7 @@ public class LingvoLiveTest {
 
     @Test
     void testExecuteWhenTranslationNotFound() {
-        GetMinicard request = new GetMinicard().srcLang(Lang.ENGLISH).dstLang(Lang.RUSSIAN).text("");
+        GetMinicard request = new GetMinicard().srcLang(Lang.EN).dstLang(Lang.RU).text("");
         GetMinicardResponse response = lingvoLive.execute(request);
 
         Assertions.assertFalse(response.isOk());
@@ -47,14 +47,14 @@ public class LingvoLiveTest {
 
     @Test
     void testExecuteWhenRequiredQueryMissed() {
-        GetMinicard request0 = new GetMinicard().dstLang(Lang.ENGLISH).text("text");
+        GetMinicard request0 = new GetMinicard().dstLang(Lang.EN).text("text");
         MissingQueryException exception0 = Assertions.assertThrowsExactly(MissingQueryException.class, () -> {
             lingvoLive.execute(request0);
         });
         Assertions.assertEquals("srcLang", exception0.getKey());
         Assertions.assertEquals(request0.getClass().getSimpleName(), exception0.getClassName());
 
-        GetWordlist request1 = new GetWordlist().srcLang(Lang.ENGLISH);
+        GetWordlist request1 = new GetWordlist().srcLang(Lang.EN);
         MissingQueryException exception1 = Assertions.assertThrowsExactly(MissingQueryException.class, () -> {
             lingvoLive.execute(request1, new Callback<GetWordlist, GetWordlistResponse>() {
                 @Override
@@ -72,7 +72,7 @@ public class LingvoLiveTest {
 
     @Test
     void testGetMinicard() {
-        GetMinicard request = new GetMinicard().srcLang(Lang.ENGLISH).dstLang(Lang.RUSSIAN).text("book");
+        GetMinicard request = new GetMinicard().srcLang(Lang.EN).dstLang(Lang.RU).text("book");
         GetMinicardResponse response = lingvoLive.execute(request);
         Assertions.assertEquals(200, response.code());
 
@@ -85,7 +85,7 @@ public class LingvoLiveTest {
 
     @Test
     void testGetSuggestsWhenSuggestsFound() {
-        GetSuggests request = new GetSuggests().text("book").srcLang(Lang.ENGLISH).dstLang(Lang.RUSSIAN);
+        GetSuggests request = new GetSuggests().text("book").srcLang(Lang.EN).dstLang(Lang.RU);
         GetSuggestsResponse response = lingvoLive.execute(request);
         Assertions.assertEquals(200, response.code());
 
@@ -97,7 +97,7 @@ public class LingvoLiveTest {
 
     @Test
     void testGetSuggestsWhenSuggestionsNotFound() {
-        GetSuggests request = new GetSuggests().text("82828jjj").srcLang(Lang.ENGLISH).dstLang(Lang.RUSSIAN);
+        GetSuggests request = new GetSuggests().text("82828jjj").srcLang(Lang.EN).dstLang(Lang.RU);
         GetSuggestsResponse response = lingvoLive.execute(request);
 
         Assertions.assertEquals(404, response.code());
@@ -108,7 +108,7 @@ public class LingvoLiveTest {
 
     @Test
     void testGetWordForms() {
-        GetWordForms request = new GetWordForms().lang(Lang.ENGLISH).text("book");
+        GetWordForms request = new GetWordForms().lang(Lang.EN).text("book");
         GetWordFormsResponse response = lingvoLive.execute(request);
         Assertions.assertEquals(200, response.code());
 
@@ -120,8 +120,8 @@ public class LingvoLiveTest {
     @Test
     void testGetWordlist() {
         GetWordlist request = new GetWordlist()
-                .srcLang(Lang.ENGLISH)
-                .dstLang(Lang.RUSSIAN)
+                .srcLang(Lang.EN)
+                .dstLang(Lang.RU)
                 .prefix("mother")
                 .pageSize(20)
                 .startPos("mother");
@@ -143,8 +143,8 @@ public class LingvoLiveTest {
         CountDownLatch lock = new CountDownLatch(1);
         GetMinicard request = new GetMinicard()
                 .text("word")
-                .srcLang(Lang.ENGLISH)
-                .dstLang(Lang.RUSSIAN);
+                .srcLang(Lang.EN)
+                .dstLang(Lang.RU);
         lingvoLive.execute(request, new Callback<GetMinicard, GetMinicardResponse>() {
             @Override
             public void onResponse(GetMinicard request, GetMinicardResponse response) {
@@ -165,8 +165,8 @@ public class LingvoLiveTest {
         LingvoLiveClient client = new LingvoLiveClient(TEST_API_KEY, new OkHttpClient(), null);
         GetMinicard request = new GetMinicard()
                 .text("word")
-                .srcLang(Lang.ENGLISH)
-                .dstLang(Lang.RUSSIAN);
+                .srcLang(Lang.EN)
+                .dstLang(Lang.RU);
         client.send(request, new Callback<GetMinicard, GetMinicardResponse>() {
             @Override
             public void onResponse(GetMinicard request, GetMinicardResponse response) {
