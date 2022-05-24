@@ -47,10 +47,6 @@ public class LingvoLiveClient {
         return apiKey;
     }
 
-    /**
-     * @throws MissingQueryException if required query hasn't been set for
-     * the provided request
-     * */
     public <T extends BaseRequest<T, R>, R extends BaseResponse> void send(final T request, final Callback<T, R> callback) {
         httpClient.newCall(createRequest(request)).enqueue(new okhttp3.Callback() {
             @Override
@@ -80,10 +76,6 @@ public class LingvoLiveClient {
         });
     }
 
-    /**
-     * @throws MissingQueryException if required query hasn't been set for
-     * the provided request
-     * */
     public <T extends BaseRequest<T, R>, R extends BaseResponse> R send(final BaseRequest<T, R> request) {
         try (Response response = httpClient.newCall(createRequest(request)).execute()) {
             return createResponse(request, response);
@@ -169,7 +161,6 @@ public class LingvoLiveClient {
     }
 
     private Request createRequest(BaseRequest<?, ?> request) {
-        request.checkRequiredQueries();
         return new Request.Builder()
                 .header("Authorization", "Bearer " + bearerToken)
                 .url(API_V1_URL + request.getMethod() + createQueryString(request))

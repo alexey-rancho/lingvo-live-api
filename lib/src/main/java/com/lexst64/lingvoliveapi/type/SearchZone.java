@@ -14,7 +14,7 @@ public enum SearchZone {
         this.code = code;
     }
 
-    public int code() {
+    public int getCode() {
         return code;
     }
 }

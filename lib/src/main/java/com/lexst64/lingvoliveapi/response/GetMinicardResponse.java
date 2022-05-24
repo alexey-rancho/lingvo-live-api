@@ -1,6 +1,6 @@
 package com.lexst64.lingvoliveapi.response;
 
-import com.lexst64.lingvoliveapi.type.Lang;
+import com.lexst64.lingvoliveapi.lang.Lang;
 import com.lexst64.lingvoliveapi.type.WordListItem;
 
 import java.util.Arrays;
