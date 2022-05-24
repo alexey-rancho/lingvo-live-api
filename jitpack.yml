@@ -1,5 +1,10 @@
-#jdk: openjdk11
-
+jdk:
+  - openjdk11
 before_install:
-  - sdk install java 11.0.10-open
-  - sdk use java 11.0.10-open111
+  - echo "Before Install"
+  - bash ensure-java-11 install
+install:
+  - echo "Install"
+  - if ! bash ensure-java-11 use; then source ~/.sdkman/bin/sdkman-init.sh; fi
+  - java -version
+  - mvn install
