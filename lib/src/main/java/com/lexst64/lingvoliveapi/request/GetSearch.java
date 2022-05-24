@@ -23,11 +23,11 @@ public class GetSearch extends BaseRequest<GetSearch, GetSearchResponse> {
     }
 
     public GetSearch srcLang(@NotNull Lang srcLang) {
-        return addQuery("srcLang", srcLang.code());
+        return addQuery("srcLang", srcLang.getCode());
     }
 
     public GetSearch dstLang(@NotNull Lang dstLang) {
-        return addQuery("dstLang", dstLang.code());
+        return addQuery("dstLang", dstLang.getCode());
     }
 
     public GetSearch searchZone(@NotNull SearchZone searchZone) {
