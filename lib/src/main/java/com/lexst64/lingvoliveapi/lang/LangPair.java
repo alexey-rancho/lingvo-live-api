@@ -85,8 +85,6 @@ public enum LangPair {
         return findPairsByLang(dstLang, LangType.DST_LANG);
     }
 
-    private enum LangType {SRC_LANG, DST_LANG}
-
     private static LangPair[] findPairsByLang(Lang lang, LangType langType) {
         List<LangPair> pairs = new ArrayList<>();
         for (LangPair pair : LangPair.values()) {
