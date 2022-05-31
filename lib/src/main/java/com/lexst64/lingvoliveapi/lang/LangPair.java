@@ -1,6 +1,7 @@
 package com.lexst64.lingvoliveapi.lang;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public enum LangPair {
@@ -37,6 +38,28 @@ public enum LangPair {
     UK_EN(Lang.UK, Lang.EN),
     UK_RU(Lang.UK, Lang.RU),
     UK_UK(Lang.UK, Lang.UK);
+
+    private static final Lang[] srcLangs;
+    private static final Lang[] dstLangs;
+
+    static {
+        srcLangs = Arrays.stream(values()).map(LangPair::getSrcLang).distinct().toArray(Lang[]::new);
+        dstLangs = Arrays.stream(values()).map(LangPair::getDstLang).distinct().toArray(Lang[]::new);
+    }
+
+    /**
+     * @return array of all available source languages for the existing lang pairs
+     * */
+    public static Lang[] getSrcLangs() {
+        return srcLangs;
+    }
+
+    /**
+     * @return array of all available destination languages for the existing lang pairs
+     * */
+    public static Lang[] getDstLangs() {
+        return dstLangs;
+    }
 
     private final Lang srcLang;
     private final Lang dstLang;
