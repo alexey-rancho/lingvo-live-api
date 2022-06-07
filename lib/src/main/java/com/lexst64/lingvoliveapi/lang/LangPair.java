@@ -77,6 +77,15 @@ public enum LangPair {
         return dstLang;
     }
 
+    public static LangPair getPair(Lang srcLang, Lang dstLang) {
+        for (LangPair langPair : findPairsBySrcLang(srcLang)) {
+            if (langPair.dstLang == dstLang) {
+                return langPair;
+            }
+        }
+        throw new LangPairNotFoundException(srcLang, dstLang);
+    }
+
     public static LangPair[] findPairsBySrcLang(Lang srcLang) {
         return findPairsByLang(srcLang, LangType.SRC_LANG);
     }
