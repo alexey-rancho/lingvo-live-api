@@ -2,7 +2,7 @@ package com.lexst64.lingvoliveapi;
 
 import com.lexst64.lingvoliveapi.lang.Lang;
 import com.lexst64.lingvoliveapi.lang.LangPair;
-import com.lexst64.lingvoliveapi.lang.LangPairNotFoundException;
+import com.lexst64.lingvoliveapi.lang.exceptions.LangPairNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

@@ -1,5 +1,7 @@
 package com.lexst64.lingvoliveapi.lang;
 
+import com.lexst64.lingvoliveapi.lang.exceptions.LangPairNotFoundException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

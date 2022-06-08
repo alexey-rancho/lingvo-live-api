@@ -1,4 +1,6 @@
-package com.lexst64.lingvoliveapi.lang;
+package com.lexst64.lingvoliveapi.lang.exceptions;
+
+import com.lexst64.lingvoliveapi.lang.Lang;
 
 public class LangPairNotFoundException extends RuntimeException {
 

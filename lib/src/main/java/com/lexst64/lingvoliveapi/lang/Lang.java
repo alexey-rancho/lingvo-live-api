@@ -1,6 +1,9 @@
 package com.lexst64.lingvoliveapi.lang;
 
 import com.google.gson.annotations.SerializedName;
+import com.lexst64.lingvoliveapi.lang.exceptions.LangNotFoundException;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public enum Lang {
     @SerializedName("1058")
@@ -46,21 +49,23 @@ public enum Lang {
         return code;
     }
 
-    public static Lang getLangByCode(int code) {
-        for (Lang lang : Lang.values()) {
-            if (lang.code == code) {
-                return lang;
-            }
-        }
-        return null;
+    public static Lang getLangByCode(int code) throws LangNotFoundException {
+        return _getLangByCode(code, null);
     }
 
-    public static Lang getLangByCode(int code, Lang defaultValue) {
-        for (Lang lang : Lang.values()) {
+    public static Lang getLangByCode(int code, @NotNull Lang defaultValue) {
+        return _getLangByCode(code, defaultValue);
+    }
+
+    private static Lang _getLangByCode(int code, @Nullable Lang defaultValue) {
+        for (Lang lang : values()) {
             if (lang.code == code) {
                 return lang;
             }
         }
-        return defaultValue;
+        if (defaultValue != null) {
+            return defaultValue;
+        }
+        throw new LangNotFoundException(code);
     }
 }
